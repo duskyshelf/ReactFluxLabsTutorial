@@ -20,12 +20,22 @@
 	*
 	*/
 
+	var Whatever = React.createClass({
+		render: function() {
+			return (
+				<div>
+					React is cool
+				</div>
+			);
+		}
+	});
 
 	var RecipeList = React.createClass({
 	  render: function() {
 	    return (
 	      <div>
 	      	RecipeList component text
+					<Whatever/>
 	      </div>
 	    );
 	  }
