@@ -46,16 +46,16 @@
             getRecipes: function(){
                return _recipes;
             }
-        }, function(payload){
+        },
+          function(payload){
             if(payload.actionType === "ADD_RECIPE") {
                 addRecipe(payload.text);
-                RecipeStore.emitChange();
             }
             if(payload.actionType === "DESTROY_EVERYTHING") {
                 console.log("destroy heard")
-                clearRecipes()
-                RecipeStore.emitChange();
+                clearRecipes();
             }
+            RecipeStore.emitChange();
         });
 
         /** Actions */
