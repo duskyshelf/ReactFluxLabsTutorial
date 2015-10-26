@@ -37,6 +37,11 @@
             _recipes.push(text);
         }
 
+        function clearRecipes() {
+          console.log("trying to clear")
+          _recipes = [];
+        }
+
         var RecipeStore = Flux.createStore({
             getRecipes: function(){
                return _recipes;
@@ -44,6 +49,11 @@
         }, function(payload){
             if(payload.actionType === "ADD_RECIPE") {
                 addRecipe(payload.text);
+                RecipeStore.emitChange();
+            }
+            if(payload.actionType === "DESTROY_EVERYTHING") {
+                console.log("destroy heard")
+                clearRecipes()
                 RecipeStore.emitChange();
             }
         });
@@ -56,6 +66,11 @@
                   actionType: "ADD_RECIPE",
                   text: text
                }
+            },
+            destroyEverything: function(){
+              return{
+                actionType: "DESTROY_EVERYTHING"
+              }
             }
         });
 
@@ -86,6 +101,9 @@
             addRecipe: function(){
                 RecipeActions.addRecipe({_id: Math.floor(Math.random()*1000000)});
             },
+            newMethod: function() {
+              RecipeActions.destroyEverything()
+            },
             render: function() {
                 return (
                 <div className="recipes_app">
@@ -95,6 +113,7 @@
                         })}
                     </ul>
                     <button onClick={this.addRecipe}>Add recipe</button>
+                    <button onClick={this.newMethod}>Clear recipes</button>
                 </div>
                 )
             }
